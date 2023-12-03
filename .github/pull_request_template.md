@@ -29,11 +29,9 @@
 <!-- If your change requires a documentation PR, please link it appropriately -->
 <!-- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
-- [ ] PR title is clear and concise
-- [ ] Commit is written in conventional commit format
-- [ ] Only one commit for the PR.
-- [ ] Feature development
-- [ ] Implementation of unit tests
-- [ ] Documentation / Deployment procedure written
-- [ ] ADR written and approved
-- [ ] Code review done
+- [ ] 🎯 PR title is clear and concise
+- [ ] ✅ Only one Commit & it is written in conventional commit format
+- [ ] 👨‍💻 Feature development
+- [ ] 🧪 Implementation of unit tests
+- [ ] 📄 ADR or Documentation  written and approved
+- [ ] 🔍 Code review done

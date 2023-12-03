@@ -1,5 +1,10 @@
 # Overall Features of TaxSmart
 
+## Status
+
+[![Generic badge](https://img.shields.io/badge/Date-2023/12/01-blue.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Status-Accepted-Green.svg)](https://shields.io/)
+
 Title: **TaxSmart - Simplifying Your Tax Experience**
 
 ---
@@ -12,7 +17,9 @@ Title: **TaxSmart - Simplifying Your Tax Experience**
 
 **Slide 2: The Need for TaxSmart**
 
-*In a world of complex tax regulations, TaxSmart emerges as the beacon of simplicity. As individuals and businesses navigate the intricacies of the French tax system, TaxSmart is here to streamline the process, making tax calculations easy, accurate, and stress-free.*
+*In a world of complex tax regulations, TaxSmart emerges as the beacon of simplicity. As individuals and businesses
+navigate the intricacies of the French tax system, TaxSmart is here to streamline the process, making tax calculations
+easy, accurate, and stress-free.*
 
 ---
 
@@ -21,9 +28,11 @@ Title: **TaxSmart - Simplifying Your Tax Experience**
 *Discover the Power of TaxSmart:*
 
 - **Intuitive Interface:** A user-friendly design for effortless data input and navigation.
-- **Comprehensive Calculations:** Covering income tax, social security contributions, and various deductions for a complete tax overview.
+- **Comprehensive Calculations:** Covering income tax, social security contributions, and various deductions for a
+  complete tax overview.
 - **Real-time Updates:** Stay in sync with the latest French tax laws for precise calculations.
-- **Scenario Customization:** Tailor TaxSmart to your unique situation, whether you're an employee, freelancer, or business owner.
+- **Scenario Customization:** Tailor TaxSmart to your unique situation, whether you're an employee, freelancer, or
+  business owner.
 
 ---
 

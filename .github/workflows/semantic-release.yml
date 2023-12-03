@@ -1,0 +1,38 @@
+name: Semantic release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+
+  backend-quality-check:
+    name: ✔️ Check Back-End Quality
+    uses: ./.github/workflows/backend-quality-check.yml
+
+  frontend-quality-check:
+    name: ✔️ Check Front-End Quality
+    uses: ./.github/workflows/frontend-quality-check.yml
+
+  release-new-version:
+    name: Release new version
+    needs:
+      - backend-quality-check
+      - frontend-quality-check
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          extra_plugins: |
+            @semantic-release/exec@latest
