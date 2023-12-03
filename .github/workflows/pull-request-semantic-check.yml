@@ -7,7 +7,10 @@ on:
 
 jobs:
   check-pull-request-title:
-    runs-on: [ ubuntu-latest ]
+    if: '! github.event.pull_request.draft'
+    name: Check Pull Request Title
+    runs-on:
+      - ubuntu-latest
     steps:
       - name: Validate PR title
         uses: amannn/action-semantic-pull-request@v5

@@ -1,5 +1,8 @@
 # Pre-Commit Hooks
 
+[![Generic badge](https://img.shields.io/badge/Date-2023/12/01-blue.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Status-Accepted-Green.svg)](https://shields.io/)
+
 ## Context
 
 Back-End code is free to be pushed to git without any check on the quality of its formatting or good practices.
