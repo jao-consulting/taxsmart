@@ -1,0 +1,38 @@
+openapi: "3.0.3"
+info:
+  description: "This project provides endpoints for calculating your taxes depending on your fiscal revenue."
+  version: "@project.version@"
+  title: "TaxSmart API"
+
+
+paths:
+  /tax:
+    get:
+      summary: "Calculates your taxes"
+      operationId: "calculateTax"
+      tags:
+        - "tax"
+      parameters:
+        - in: query
+          name: fiscalRevenue
+          schema:
+            type: number
+            format: double
+          required: true
+          description: "Your fiscal revenue"
+      responses:
+        "200":
+          description: "Your tax"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tax"
+
+components:
+  schemas:
+    Tax:
+      type: object
+      properties:
+        taxAmount:
+          type: number
+          format: double
