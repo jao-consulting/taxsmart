@@ -4,8 +4,15 @@ coverage:
       default: off
       front:
         flags: front
+      back:
+        flags: back
+ignore:
+  - "back/**/*Application.java"
 
 flags:
   front:
     paths:
       - front/
+  back:
+    paths:
+      - back/

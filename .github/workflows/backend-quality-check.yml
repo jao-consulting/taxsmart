@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'backend/**'
+      - 'back/**'
   workflow_call:
   workflow_dispatch:
 
@@ -16,12 +16,27 @@ jobs:
     name: Run Back-End unit tests
     runs-on:
       - ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
       - name: Run unit tests
-        run: |
-          echo "Running unit tests"
+        run: mvn --batch-mode verify
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: front
+          fail_ci_if_error: true
+
+
   backend-run-integration-tests:
     name: Run Back-End integration tests
     runs-on:
