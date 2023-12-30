@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'frontend/**'
+      - 'front/**'
   workflow_call:
   workflow_dispatch:
 
@@ -15,10 +15,19 @@ jobs:
     name: Run Front-End unit tests
     runs-on:
       - ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run unit tests
-        run: |
-          echo "Running frontend unit tests"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run test:coverage
 
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: front
+          fail_ci_if_error: true
