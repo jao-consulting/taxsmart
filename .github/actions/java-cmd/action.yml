@@ -1,0 +1,35 @@
+name: 'Java run command'
+description: 'Run Java command'
+
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: true
+    default: 'back'
+  java-version:
+    description: 'Java version'
+    required: true
+    default: '21'
+  distribution:
+    description: 'Java distribution'
+    required: true
+    default: 'temurin'
+  java-cmd:
+    description: 'Java command'
+    required: true
+    default: 'package'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up JDK ${{ inputs.java-version }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.distribution }}
+
+    - name: Run ${{ inputs.java-cmd }}
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        ${{ inputs.java-cmd }}

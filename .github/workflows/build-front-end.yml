@@ -8,12 +8,25 @@ on:
 
 jobs:
   build-frontend:
-    name: Build Back-End
+    name: Build Front-End Image
     runs-on:
       - ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Building Front
-        run: |
-          echo "Building Front-End"
+        uses: actions/checkout@v4
+
+      - name: Run Node build
+        uses: ./.github/actions/node-cmd
+        with:
+          working-directory: front
+          node-version: 20
+          node-install-cmd: npm ci
+          node-cmd: npm run build
+
+      - name: Building Front End Image
+        uses: ./.github/actions/docker-build
+        with:
+          working-directory: front
+          image-name: taxsmart--front
+          tag-version: ${{ github.event.release.tag_name }}
+          ghcr-token: ${{ secrets.CR_PAT }}

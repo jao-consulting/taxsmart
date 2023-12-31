@@ -1,0 +1,47 @@
+name: 'Docker Build'
+description: 'Docker image build'
+
+
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: true
+    default: 'back'
+  image-name:
+    description: 'Image name'
+    required: true
+  tag-version:
+    description: 'Tag version'
+    required: true
+  ghcr-token:
+    description: 'GitHub Container Registry PAT'
+    required: true
+  build-args:
+    description: 'Build arguments'
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.ghcr-token }}
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: ${{ inputs.working-directory }}
+        file: ${{ inputs.working-directory }}/Dockerfile
+        push: true
+        tags: ghcr.io/${{ github.repository }}/${{ inputs.image-name }}:${{ inputs.tag-version }}
+        build-args: ${{ inputs.build-args }}
+
