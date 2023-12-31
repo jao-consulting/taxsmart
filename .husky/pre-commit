@@ -2,5 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 #!/bin/sh
 
+# Go to front repo and format code
+cd front/ && npm run lint:fix
 # Go to back repo and format code
-cd back/ && mvn formatter:format
+cd ../back/ && mvn formatter:format

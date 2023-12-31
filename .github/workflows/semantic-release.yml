@@ -2,15 +2,7 @@ name: Semantic release
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'docs/**'
-      - 'README.md'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.husky/**'
+
 permissions: write-all
 
 jobs:
