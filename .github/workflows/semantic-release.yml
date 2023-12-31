@@ -32,7 +32,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         id: semantic
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
         with:
           extra_plugins: |
             @semantic-release/exec@latest
