@@ -1,0 +1,42 @@
+name: 'Node run command'
+description: 'Run Node command'
+
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: true
+    default: 'front'
+  node-version:
+    description: 'Node version'
+    required: true
+    default: '20'
+  node-install-cmd:
+    description: 'Node install command'
+    required: true
+    default: 'npm ci'
+  node-cmd:
+    description: 'Node command'
+    required: true
+    default: 'npm run test'
+
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Set up Node ${{ inputs.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Run ${{ inputs.node-install-cmd }}
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        ${{ inputs.node-install-cmd }}
+
+    - name: Run ${{ inputs.node-cmd }}
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        ${{ inputs.node-cmd }}

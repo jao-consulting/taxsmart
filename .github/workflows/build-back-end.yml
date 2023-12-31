@@ -8,12 +8,33 @@ on:
 
 jobs:
   build-backend:
-    name: Build Back-End
+    name: Build Back-End Image
     runs-on:
       - ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [ 'taxsmart--bff' ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Building Back
-        run: |
-          echo "Building Back-End"
+        uses: actions/checkout@v4
+
+      - name: Run Java Build
+        uses: ./.github/actions/java-cmd
+        with:
+          working-directory: back
+          distribution: 'temurin'
+          java-version: '21'
+          java-cmd: mvn --batch-mode verify
+
+      - name: Building Back End Image
+        uses: ./.github/actions/docker-build
+        with:
+          working-directory: back
+          image-name: ${{ matrix.module }}
+          tag-version: ${{ github.event.release.tag_name }}
+          ghcr-token: ${{ secrets.CR_PAT }}
+          build-args: "MODULE=${{ matrix.module }}"
