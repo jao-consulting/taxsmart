@@ -1,28 +1,34 @@
+# This is the Frontend Quality Check workflow. It is responsible for running unit tests on the front-end of the application.
 name: Frontend Quality Check
 
+# This workflow is triggered on pull request events to the main branch, and also runs on a workflow call and workflow dispatch.
 on:
   pull_request:
-    types: [ opened, reopened, synchronize, ready_for_review ]
+    types: [ opened, reopened, synchronize, ready_for_review ] # The types of pull request events that trigger this workflow.
     branches:
-      - main
+      - main # The branch that the pull request events must be on to trigger this workflow.
     paths:
-      - 'front/**'
-  workflow_call:
-  workflow_dispatch:
+      - 'front/**' # The paths that the pull request events must affect to trigger this workflow.
+  workflow_call: # This workflow can be called by other workflows.
+  workflow_dispatch: # This workflow can be manually dispatched.
 
+# The jobs that this workflow runs.
 jobs:
+  # This job is responsible for running the front-end unit tests.
   frontend-run-unit-tests:
-    if: '! github.event.pull_request.draft'
+    if: '! github.event.pull_request.draft' # This job is skipped if the pull request is a draft.
     name: Run Front-End unit tests
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     defaults:
       run:
-        working-directory: front
+        working-directory: front # The default working directory for this job.
     steps:
+      # This step checks out the repository.
       - name: Checkout
         uses: actions/checkout@v4
 
+      # This step runs the Node.js unit tests.
       - name: Run Node Tests
         uses: ./.github/actions/node-cmd
         with:
@@ -30,6 +36,8 @@ jobs:
           node-version: 20
           node-install-cmd: npm ci
           node-cmd: npm run test:coverage
+
+      # This step uploads the code coverage report to Codecov.
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:

@@ -1,29 +1,34 @@
+# This is the Backend Quality Check workflow. It is responsible for running unit and integration tests on the back-end of the application.
 name: Backend Quality Check
 
+# This workflow is triggered on pull request events to the main branch, and also runs on a workflow call and workflow dispatch.
 on:
   pull_request:
-    types: [ opened, reopened, synchronize, ready_for_review ]
+    types: [ opened, reopened, synchronize, ready_for_review ] # The types of pull request events that trigger this workflow.
     branches:
-      - main
+      - main # The branch that the pull request events must be on to trigger this workflow.
     paths:
-      - 'back/**'
-  workflow_call:
-  workflow_dispatch:
+      - 'back/**' # The paths that the pull request events must affect to trigger this workflow.
+  workflow_call: # This workflow can be called by other workflows.
+  workflow_dispatch: # This workflow can be manually dispatched.
 
-
+# The jobs that this workflow runs.
 jobs:
+  # This job is responsible for running the back-end unit tests.
   backend-run-unit-tests:
-    if: '! github.event.pull_request.draft'
+    if: '! github.event.pull_request.draft' # This job is skipped if the pull request is a draft.
     name: Run Back-End unit tests
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     defaults:
       run:
-        working-directory: back
+        working-directory: back # The default working directory for this job.
     steps:
+      # This step checks out the repository.
       - name: Checkout
         uses: actions/checkout@v4
 
+      # This step runs the Java unit tests.
       - name: Run Java Unit Tests
         uses: ./.github/actions/java-cmd
         with:
@@ -32,6 +37,7 @@ jobs:
           java-version: '21'
           java-cmd: mvn --batch-mode verify
 
+      # This step uploads the code coverage report to Codecov.
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -39,14 +45,18 @@ jobs:
           flags: front
           fail_ci_if_error: true
 
+  # This job is responsible for running the back-end integration tests.
   backend-run-integration-tests:
-    if: '! github.event.pull_request.draft'
+    if: '! github.event.pull_request.draft' # This job is skipped if the pull request is a draft.
     name: Run Back-End integration tests
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     steps:
+      # This step checks out the repository.
       - name: Checkout
         uses: actions/checkout@v4
+
+      # This step runs the Java integration tests.
       - name: Run Java Integration Tests
         uses: ./.github/actions/java-cmd
         with:

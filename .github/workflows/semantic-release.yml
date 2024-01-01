@@ -1,35 +1,50 @@
+# This is the Semantic Release workflow. It is responsible for checking the quality of the back-end and front-end code and releasing a new version if the quality checks pass.
 name: Semantic release
 
+# This workflow is triggered on push events to the main branch and can also be manually dispatched.
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main # The branch that the push events must be on to trigger this workflow.
+    paths:
+      - 'back/**' # The paths that the push events must affect to trigger this workflow.
+      - 'front/**' # The paths that the push events must affect to trigger this workflow.
+  workflow_dispatch: # This workflow can be manually dispatched.
 
+# The permissions required by this workflow.
 permissions: write-all
 
+# The jobs that this workflow runs.
 jobs:
-
+  # This job is responsible for checking the quality of the back-end code.
   backend-quality-check:
     name: ✔️ Check Back-End Quality
-    uses: ./.github/workflows/backend-quality-check.yml
+    uses: ./.github/workflows/backend-quality-check.yml # The workflow to use for the back-end quality check.
 
+  # This job is responsible for checking the quality of the front-end code.
   frontend-quality-check:
     name: ✔️ Check Front-End Quality
-    uses: ./.github/workflows/frontend-quality-check.yml
+    uses: ./.github/workflows/frontend-quality-check.yml # The workflow to use for the front-end quality check.
 
+  # This job is responsible for releasing a new version if the quality checks pass.
   release-new-version:
     name: Release new version
     needs:
-      - backend-quality-check
-      - frontend-quality-check
+      - backend-quality-check # This job depends on the back-end quality check job.
+      - frontend-quality-check # This job depends on the front-end quality check job.
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     steps:
+      # This step checks out the repository.
       - name: Checkout
         uses: actions/checkout@v4
+
+      # This step releases a new version.
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         id: semantic
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }} # The GitHub token is used for authentication.
         with:
           extra_plugins: |
             @semantic-release/exec@latest

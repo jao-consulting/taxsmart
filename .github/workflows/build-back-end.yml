@@ -1,40 +1,47 @@
+# This is the Build Back-End workflow. It is responsible for building the back-end of the application.
 name: Build Back-End
 
+# This workflow is triggered on release creation, workflow dispatch, and workflow call events.
 on:
   release:
-    types: [ created ]
-  workflow_dispatch:
-  workflow_call:
+    types: [ created ] # The types of release events that trigger this workflow.
+  workflow_dispatch: # This workflow can be manually dispatched.
+  workflow_call: # This workflow can be called by other workflows.
 
+# The jobs that this workflow runs.
 jobs:
+  # This job is responsible for building the back-end image.
   build-backend:
     name: Build Back-End Image
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     defaults:
       run:
-        working-directory: back
+        working-directory: back # The default working directory for this job.
     strategy:
-      fail-fast: false
+      fail-fast: false # If one job fails, do not cancel other jobs.
       matrix:
-        module: [ 'taxsmart--bff' ]
+        module: [ 'taxsmart--bff' ] # The modules to build.
     steps:
+      # This step checks out the repository.
       - name: Checkout
         uses: actions/checkout@v4
 
+      # This step runs the Java build.
       - name: Run Java Build
         uses: ./.github/actions/java-cmd
         with:
-          working-directory: back
-          distribution: 'temurin'
-          java-version: '21'
-          java-cmd: mvn --batch-mode verify
+          working-directory: back # The working directory for the Java build.
+          distribution: 'temurin' # The distribution of Java to use for the build.
+          java-version: '21' # The version of Java to use for the build.
+          java-cmd: mvn --batch-mode verify # The Java command to run.
 
+      # This step builds the back-end Docker image.
       - name: Building Back End Image
         uses: ./.github/actions/docker-build
         with:
-          working-directory: back
-          image-name: ${{ matrix.module }}
-          tag-version: ${{ github.event.release.tag_name }}
-          ghcr-token: ${{ secrets.CR_PAT }}
-          build-args: "MODULE=${{ matrix.module }}"
+          working-directory: back # The working directory for the Docker build.
+          image-name: ${{ matrix.module }} # The name of the Docker image to build.
+          tag-version: ${{ github.event.release.tag_name }} # The tag version of the Docker image.
+          ghcr-token: ${{ secrets.CR_PAT }} # The GitHub Container Registry Personal Access Token.
+          build-args: "MODULE=${{ matrix.module }}" # The build arguments to pass to the Docker build command.

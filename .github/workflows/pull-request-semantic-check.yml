@@ -1,21 +1,27 @@
+# This is the Pull Request Title and Commit Check workflow. It is responsible for validating the title of pull requests and the associated commits.
 name: 'Pull Request Title and Commit Check'
+
+# This workflow is triggered on pull request events to the main branch.
 on:
   pull_request:
     branches:
-      - main
-    types: [ opened, reopened, synchronize, ready_for_review ]
+      - main # The branch that the pull request events must be on to trigger this workflow.
+    types: [ opened, reopened, synchronize, ready_for_review ] # The types of pull request events that trigger this workflow.
 
+# The jobs that this workflow runs.
 jobs:
+  # This job is responsible for checking the title of the pull request.
   check-pull-request-title:
-    if: '! github.event.pull_request.draft'
+    if: '! github.event.pull_request.draft' # This job is skipped if the pull request is a draft.
     name: Check Pull Request Title
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     steps:
+      # This step validates the title of the pull request.
       - name: Validate PR title
         uses: amannn/action-semantic-pull-request@v5
         with:
-          validateSingleCommit: true
-          validateSingleCommitMatchesPrTitle: true
+          validateSingleCommit: true # This option validates that a single commit pull request has a semantic title.
+          validateSingleCommitMatchesPrTitle: true # This option validates that the title of a single commit pull request matches the title of the pull request.
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # The GitHub token is used for authentication.

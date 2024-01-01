@@ -1,41 +1,52 @@
+# This is the Docker Build action. It is responsible for building and pushing Docker images.
 name: 'Docker Build'
 description: 'Docker image build'
 
-
+# The inputs required by this action.
 inputs:
+  # The working directory where the Dockerfile is located.
   working-directory:
     description: 'Working directory'
     required: true
     default: 'back'
+  # The name of the Docker image.
   image-name:
     description: 'Image name'
     required: true
+  # The tag version of the Docker image.
   tag-version:
     description: 'Tag version'
     required: true
+  # The GitHub Container Registry Personal Access Token.
   ghcr-token:
     description: 'GitHub Container Registry PAT'
     required: true
+  # The build arguments to pass to the Docker build command.
   build-args:
     description: 'Build arguments'
     required: false
     default: ''
 
+# The steps that this action runs.
 runs:
   using: "composite"
   steps:
+    # This step sets up QEMU.
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
+    # This step sets up Docker Buildx.
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    # This step logs in to the GitHub Container Registry.
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ inputs.ghcr-token }}
+    # This step builds and pushes the Docker image.
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
@@ -44,4 +55,3 @@ runs:
         push: true
         tags: ghcr.io/${{ github.repository }}/${{ inputs.image-name }}:${{ inputs.tag-version }}
         build-args: ${{ inputs.build-args }}
-

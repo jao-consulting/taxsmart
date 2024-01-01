@@ -1,33 +1,42 @@
+# This is the Java Run Command action. It is responsible for setting up the Java environment and running a specified Java command.
 name: 'Java run command'
 description: 'Run Java command'
 
+# The inputs required by this action.
 inputs:
+  # The working directory where the Java command should be run.
   working-directory:
     description: 'Working directory'
     required: true
     default: 'back'
+  # The version of Java to be used.
   java-version:
     description: 'Java version'
     required: true
     default: '21'
+  # The distribution of Java to be used.
   distribution:
     description: 'Java distribution'
     required: true
     default: 'temurin'
+  # The Java command to be run.
   java-cmd:
     description: 'Java command'
     required: true
     default: 'package'
 
+# The steps that this action runs.
 runs:
   using: "composite"
   steps:
+    # This step sets up the Java environment.
     - name: Set up JDK ${{ inputs.java-version }}
       uses: actions/setup-java@v4
       with:
         java-version: ${{ inputs.java-version }}
         distribution: ${{ inputs.distribution }}
 
+    # This step runs the specified Java command.
     - name: Run ${{ inputs.java-cmd }}
       shell: bash
       run: |

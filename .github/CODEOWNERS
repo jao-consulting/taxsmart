@@ -1,1 +1,5 @@
+# This is the CODEOWNERS file. It is used to define who the "owner" of certain parts of the codebase is in a GitHub repository.
+# The owner is automatically requested for review whenever a pull request changes any owned files.
+
+# The '*' character refers to all files in the repository. In this case, it means that the GitHub user 'jugurta' is the owner of all files.
 * @jugurta

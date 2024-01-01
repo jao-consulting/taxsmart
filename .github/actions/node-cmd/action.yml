@@ -1,40 +1,48 @@
+# This is the Node Run Command action. It is responsible for setting up the Node.js environment and running a specified Node command.
 name: 'Node run command'
 description: 'Run Node command'
 
+# The inputs required by this action.
 inputs:
+  # The working directory where the Node command should be run.
   working-directory:
     description: 'Working directory'
     required: true
     default: 'front'
+  # The version of Node.js to be used.
   node-version:
     description: 'Node version'
     required: true
     default: '20'
+  # The Node.js install command to be run.
   node-install-cmd:
     description: 'Node install command'
     required: true
     default: 'npm ci'
+  # The Node.js command to be run.
   node-cmd:
     description: 'Node command'
     required: true
     default: 'npm run test'
 
-
+# The steps that this action runs.
 runs:
   using: "composite"
   steps:
-
+    # This step sets up the Node.js environment.
     - name: Set up Node ${{ inputs.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
 
+    # This step runs the specified Node.js install command.
     - name: Run ${{ inputs.node-install-cmd }}
       shell: bash
       run: |
         cd ${{ inputs.working-directory }}
         ${{ inputs.node-install-cmd }}
 
+    # This step runs the specified Node.js command.
     - name: Run ${{ inputs.node-cmd }}
       shell: bash
       run: |

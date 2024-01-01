@@ -1,13 +1,18 @@
+# This is the Semantic Release configuration file. It is responsible for defining the release process for the project.
+# The configuration includes the branch to release from, the preset to use, the tag format, and the repository URL.
 branches: "main"
 preset: "angular"
 tagFormat: "${version}"
 repositoryUrl: "https://github.com/jao-consulting/taxSmart.git"
-plugins:
-  - "@semantic-release/commit-analyzer"
-  - "@semantic-release/release-notes-generator"
-  - "@semantic-release/changelog"
-  - "@semantic-release/exec"
 
+# The plugins section defines the plugins to use for the release process.
+plugins:
+  - "@semantic-release/commit-analyzer" # Analyzes commit messages to determine the type of changes in the codebase.
+  - "@semantic-release/release-notes-generator" # Generates release notes based on the commit messages.
+  - "@semantic-release/changelog" # Updates the changelog file based on the release notes.
+  - "@semantic-release/exec" # Executes custom shell commands.
+
+# The analyzeCommits section defines the rules for analyzing commit messages.
 analyzeCommits:
   - path: "@semantic-release/commit-analyzer"
     parserOpts:
@@ -31,6 +36,8 @@ analyzeCommits:
         release: "patch"
       - type: "breaking"
         release: "major"
+
+# The generateNotes section defines the rules for generating release notes.
 generateNotes:
   - path: "@semantic-release/release-notes-generator"
     writerOpts:
@@ -59,17 +66,18 @@ generateNotes:
       - hidden: true
     presetConfig: true
 
+# The prepare section defines the steps to prepare for a release.
 prepare:
   - path: "@semantic-release/exec"
-    prepareCmd: "./.github/scripts/prepare-release.sh ${nextRelease.version}"
+    prepareCmd: "./.github/scripts/prepare-release.sh ${nextRelease.version}" # The command to run to prepare for a release.
   - path: "@semantic-release/git"
     assets:
       - "CHANGELOG.md"
       - "**/package.json"
       - "**/package-lock.json"
       - "**/pom.xml"
-    message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-  - path: "@semantic-release/changelog"
+    message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}" # The commit message for the release commit.
 
+# The publish section defines the steps to publish a release.
 publish:
-  - path: "@semantic-release/github"
+  - path: "@semantic-release/github" # Publishes the release to GitHub.

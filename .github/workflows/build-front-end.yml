@@ -1,32 +1,39 @@
+# This is the Build Front-End workflow. It is responsible for building the front-end of the application.
 name: Build Front-End
 
+# This workflow is triggered on release creation, workflow dispatch, and workflow call events.
 on:
   release:
-    types: [ created ]
-  workflow_dispatch:
-  workflow_call:
+    types: [ created ] # The types of release events that trigger this workflow.
+  workflow_dispatch: # This workflow can be manually dispatched.
+  workflow_call: # This workflow can be called by other workflows.
 
+# The jobs that this workflow runs.
 jobs:
+  # This job is responsible for building the front-end image.
   build-frontend:
     name: Build Front-End Image
     runs-on:
-      - ubuntu-latest
+      - ubuntu-latest # The type of runner that this job will run on.
     steps:
+      # This step checks out the repository.
       - name: Checkout
         uses: actions/checkout@v4
 
+      # This step runs the Node.js build.
       - name: Run Node build
         uses: ./.github/actions/node-cmd
         with:
-          working-directory: front
-          node-version: 20
-          node-install-cmd: npm ci
-          node-cmd: npm run build
+          working-directory: front # The working directory for the Node.js build.
+          node-version: 20 # The version of Node.js to use for the build.
+          node-install-cmd: npm ci # The Node.js install command to run.
+          node-cmd: npm run build # The Node.js command to run.
 
+      # This step builds the front-end Docker image.
       - name: Building Front End Image
         uses: ./.github/actions/docker-build
         with:
-          working-directory: front
-          image-name: taxsmart--front
-          tag-version: ${{ github.event.release.tag_name }}
-          ghcr-token: ${{ secrets.CR_PAT }}
+          working-directory: front # The working directory for the Docker build.
+          image-name: taxsmart--front # The name of the Docker image to build.
+          tag-version: ${{ github.event.release.tag_name }} # The tag version of the Docker image.
+          ghcr-token: ${{ secrets.CR_PAT }} # The GitHub Container Registry Personal Access Token.
