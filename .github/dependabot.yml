@@ -1,16 +1,22 @@
+# This is the Dependabot configuration file. It is responsible for defining the update policies for the project's dependencies.
 version: 2
 updates:
+  # This section defines the update policy for GitHub Actions used in the project.
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/" # The root directory of the project.
     schedule:
-      interval: "weekly"
+      interval: "weekly" # Updates are checked for on a weekly basis.
+
+  # This section defines the update policy for Maven dependencies in the back-end of the project.
   - package-ecosystem: "maven"
-    directory: "back"
+    directory: "back" # The directory of the back-end project.
     schedule:
-      interval: "weekly"
+      interval: "weekly" # Updates are checked for on a weekly basis.
+
+  # This section defines the update policy for npm dependencies in the front-end of the project.
   - package-ecosystem: "npm"
-    directory: "front"
+    directory: "front" # The directory of the front-end project.
     schedule:
-      interval: "weekly"
+      interval: "weekly" # Updates are checked for on a weekly basis.
     reviewers:
-      - "jugurta"
+      - "jugurta" # The GitHub user 'jugurta' is requested for review when an update is available.

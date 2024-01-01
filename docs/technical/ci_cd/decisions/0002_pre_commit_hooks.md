@@ -5,7 +5,7 @@
 
 ## Context
 
-Back-End code is free to be pushed to git without any check on the quality of its formatting or good practices.
+Source code is free to be pushed to git without any check on the quality of its formatting or good practices.
 
 ## Decision
 
@@ -20,8 +20,11 @@ repository :
     husky install
  ```
 
-and in order to have the same formatter as the one used in eclipse, the developer will have to import the file
-eclipse-formatter.xml in his editor.
+We use two different formatters, one for the java code and one for the javascript code. The java formatter is configured
+in the pom.xml file, and the javascript formatter is configured in the .prettierrc file.
+
+and in order to have the same formatter in the IDE as the one used by the pre-commit hook, we have to configure the IDE
+by importing the formatter configuration file.
 
 ## Consequences
 

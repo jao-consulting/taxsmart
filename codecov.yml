@@ -1,18 +1,35 @@
+# This is the Codecov configuration file. It is responsible for defining the coverage reporting for the project.
+
 coverage:
+  # The status section defines the coverage status reporting for the project.
   status:
+    # The project section defines the coverage status reporting for the entire project.
     project:
+      # By default, coverage status reporting for the entire project is turned off.
       default: off
+      # The front section defines the coverage status reporting for the front-end of the project.
       front:
+        # The flags section specifies that the 'front' flag should be used for the front-end coverage status reporting.
         flags: front
+      # The back section defines the coverage status reporting for the back-end of the project.
       back:
+        # The flags section specifies that the 'back' flag should be used for the back-end coverage status reporting.
         flags: back
+
+# The ignore section defines the files that should be ignored by the coverage reporting.
 ignore:
+  # The 'back/**/*Application.java' pattern specifies that all Java files named 'Application' in any directory under 'back' should be ignored.
   - "back/**/*Application.java"
 
+# The flags section defines the flags that can be used for coverage status reporting.
 flags:
+  # The front section defines the 'front' flag.
   front:
+    # The paths section specifies that the 'front' flag applies to all files in the 'front' directory.
     paths:
       - front/
+  # The back section defines the 'back' flag.
   back:
+    # The paths section specifies that the 'back' flag applies to all files in the 'back' directory.
     paths:
       - back/

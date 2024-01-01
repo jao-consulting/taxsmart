@@ -1,0 +1,83 @@
+# This is the CodeQL Security Analysis workflow. It is responsible for running security checks on both the back-end and front-end of the application.
+name: "CodeQL Security Analysis"
+
+# This workflow is triggered on push and pull request events to the main branch, and also runs on a schedule.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '18 6 * * 3' # This schedule runs the workflow every Wednesday at 6:18 AM UTC.
+
+# The jobs that this workflow runs.
+jobs:
+  # This job is responsible for analyzing the back-end code.
+  analyze-back:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      # This step checks out the repository.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # This step initializes CodeQL with the Java and Kotlin languages.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+
+      # This step runs the Java build.
+      - name: Run Java Build
+        uses: ./.github/actions/java-cmd
+        with:
+          working-directory: back
+          distribution: 'temurin'
+          java-version: '21'
+          java-cmd: mvn --batch-mode verify
+
+      # This step performs the CodeQL analysis.
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-kotlin"
+
+  # This job is responsible for analyzing the front-end code.
+  analyze-front:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      # This step checks out the repository.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # This step initializes CodeQL with the JavaScript and TypeScript languages.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+
+      # This step runs the Node tests.
+      - name: Run Node Tests
+        uses: ./.github/actions/node-cmd
+        with:
+          working-directory: front
+          node-version: 20
+          node-install-cmd: npm ci
+          node-cmd: npm run build
+
+      # This step performs the CodeQL analysis.
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"

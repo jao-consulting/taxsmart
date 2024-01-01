@@ -15,6 +15,7 @@ Each project has its own pipeline which are triggered depending on code changes.
 
 - [Pull request semantic checks](workflows/docs/pull-request-semantic-check.md)
 - [Scan & Detect secrets](workflows/docs/scan-detect-secrets.md)
+- [CodeQL Security Analysis](workflows/docs/codeql-security-analysis.md)
 - [Backend Quality Check](workflows/docs/backend-quality-check.md)
 - [Frontend Quality Check](workflows/docs/frontend-quality-check.md)
 - [Semantic release](workflows/docs/semantic-release.md)

@@ -1,5 +1,15 @@
 <!---
-☝️ PR title should follow conventional commits (https://conventionalcommits.org)
+This is the Pull Request Template for the project.
+
+The template guides contributors to provide necessary information about their changes. This ensures that the changes are understood and can be reviewed effectively.
+
+The template includes several sections:
+
+- The PR title section instructs contributors to follow the conventional commits style (https://conventionalcommits.org) for the PR title.
+- The Linked issue section asks contributors to link any related issues.
+- The Type of change section asks contributors to categorize their change (documentation, bug fix, enhancement, new feature, chore, breaking change).
+- The Description section asks contributors to provide details about their changes, the reason for the changes, and the issue the changes resolve.
+- The Checklist section provides a list of tasks that should be completed before the PR is submitted. This includes ensuring the PR title is clear and concise, the commit follows the conventional commit format, the feature has been developed, unit tests have been implemented, any necessary documentation or ADRs have been written and approved, and a code review has been done.
 -->
 
 ### 🔗 Linked issue
