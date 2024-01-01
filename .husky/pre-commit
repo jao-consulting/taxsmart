@@ -1,8 +1,14 @@
 #!/usr/bin/env sh
+# This script is used by Husky, a Git hooks manager, to enforce code formatting standards before a commit is made.
 . "$(dirname -- "$0")/_/husky.sh"
 #!/bin/sh
 
-# Go to front repo and format code
+# The script navigates to the 'front' directory, where the front-end code is located.
+# It then runs the 'lint:fix' script defined in the 'package.json' file.
+# This script uses a linter to automatically fix any code formatting issues in the TypeScript and JavaScript files.
 cd front/ && npm run lint:fix
-# Go to back repo and format code
+
+# The script then navigates to the 'back' directory, where the back-end code is located.
+# It runs the 'formatter:format' goal of the Maven Formatter Plugin.
+# This goal formats the Java code according to the rules defined in the formatter configuration file.
 cd ../back/ && mvn formatter:format
