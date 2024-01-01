@@ -67,8 +67,8 @@ jobs:
         with:
           languages: javascript-typescript
 
-      # This step runs the Node tests.
-      - name: Run Node Tests
+      # This step runs the Node Build.
+      - name: Run Node Build
         uses: ./.github/actions/node-cmd
         with:
           working-directory: front

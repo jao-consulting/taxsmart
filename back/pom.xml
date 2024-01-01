@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a Project Object Model (POM) file for a Maven project. It defines the project structure, dependencies, build plugins, and other project-specific configurations. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- The parent section defines the parent project from which this project inherits configurations. -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -9,16 +11,19 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <!-- The groupId, artifactId, and version elements define the project's coordinates in the Maven repository. -->
     <groupId>com.jao.taxsmart</groupId>
     <artifactId>taxsmart</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>TaxSmart</name>
-    <description>TaxSmart</description>
+    <name>taxsmart</name>
+    <description>taxsmart</description>
+    <!-- The modules element defines the modules that make up this project. -->
     <modules>
         <module>taxsmart--bff</module>
     </modules>
 
+    <!-- The properties element defines project-wide properties that can be referenced elsewhere in the POM. -->
     <properties>
         <revision>1.0.6</revision>
         <java.version>21</java.version>
@@ -29,6 +34,7 @@
         <jacoco.version>0.8.11</jacoco.version>
     </properties>
 
+    <!-- The dependencies element defines the dependencies that this project has on other projects. -->
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -51,11 +57,13 @@
         </dependency>
 
         <!--Utils-->
+        <!-- MapStruct : Java annotation processor for the generation of type-safe and performant mappers for Java bean classes -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+        <!-- Lombok : Java annotation library which helps to reduce boilerplate code -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -64,17 +72,20 @@
         </dependency>
     </dependencies>
 
+    <!-- The scm element defines the source control management system used by the project. -->
     <scm>
-        <connection>scm:git:https://github.com/jao-consulting/TaxSmart.git</connection>
-        <developerConnection>scm:git:https://github.com/jao-consulting/TaxSmart.git</developerConnection>
-        <url>https://github.com/jao-consulting/TaxSmart.git</url>
+        <connection>scm:git:https://github.com/jao-consulting/taxsmart.git</connection>
+        <developerConnection>scm:git:https://github.com/jao-consulting/taxsmart.git</developerConnection>
+        <url>https://github.com/jao-consulting/taxsmart.git</url>
         <tag>HEAD</tag>
     </scm>
 
+    <!-- The build element defines the build configurations for the project. -->
     <build>
         <finalName>${project.artifactId}</finalName>
+        <!-- The plugins element defines the build plugins used by the project. -->
         <plugins>
-            <!-- Maven compiler for annotation processing -->
+            <!-- Maven compiler to compile the source code -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -95,16 +106,6 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-            <!-- Maven compiler to execute the unit tests of an application -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*Test*.java</include>
-                    </includes>
-                </configuration>
-            </plugin>
             <!-- Maven plugin to execute the unit tests of an application -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -115,6 +116,7 @@
                     </includes>
                 </configuration>
             </plugin>
+            <!-- Maven plugin to execute the integration tests of an application -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -131,7 +133,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Maven Code Formatter to format the source code -->
+            <!-- Maven plugin to format the source code -->
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
@@ -147,7 +149,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Jacoco report plugin -->
+            <!-- Maven plugin to generate the code coverage report -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
