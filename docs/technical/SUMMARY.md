@@ -17,3 +17,4 @@
     * [Pre-Commit Hooks](ci_cd/decisions/0002_pre_commit_hooks.md)
     * [Semantic release](ci_cd/decisions/0003_semantic_release.md)
     * [Delivery Process](ci_cd/decisions/0004_delivery_process.md)
+    * [Quality tools](ci_cd/decisions/0005_quality_tools.md)
