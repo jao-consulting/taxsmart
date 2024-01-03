@@ -1,0 +1,45 @@
+# This is a GitHub Actions workflow for mutation testing.
+# It is triggered by various pull request events and can also be manually dispatched or called by other workflows.
+name: Mutation Testing
+
+on:
+  pull_request:
+    # The types of pull request events that trigger this workflow.
+    types: [ opened, reopened, synchronize, ready_for_review ]
+    # The branch that the pull request events must be on to trigger this workflow.
+    branches:
+      - main
+  # This workflow can be called by other workflows.
+  workflow_call:
+  # This workflow can be manually dispatched.
+  workflow_dispatch:
+
+jobs:
+  # This job runs the back-end mutation tests.
+  backend-mutation-testing:
+    # This job is skipped if the pull request is a draft.
+    if: '! github.event.pull_request.draft'
+    name: Run Back-End mutation tests
+    # This job runs on the latest version of Ubuntu.
+    runs-on:
+      - ubuntu-latest
+    defaults:
+      run:
+        # The default working directory for this job.
+        working-directory: back
+    steps:
+      # This step checks out the repository.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # This step runs the Java unit tests.
+      - name: Run Java mutation Tests
+        uses: ./.github/actions/java-cmd
+        with:
+          working-directory: back
+          distribution: 'temurin'
+          java-version: '21'
+          # This command runs the mutation tests using the PITest Maven plugin.
+          java-cmd: mvn -B test-compile org.pitest:pitest-maven:mutationCoverage
+          # The API key for the Stryker dashboard is stored as a GitHub secret.
+          stryker-dashboard-api-key: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
