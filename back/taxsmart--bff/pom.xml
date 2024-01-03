@@ -17,6 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <openapi-generator.version>7.2.0</openapi-generator.version>
     </properties>
 
     <!-- The dependencies element defines the dependencies that this project has on other projects. -->
@@ -48,6 +49,41 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <!-- OpenAPI Generator Maven Plugin -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+                <executions>
+                    <execution>
+                        <id>in</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <output>${openapi.generation.directory}</output>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/in/openapi.yml</inputSpec>
+                            <packageName>${project.groupId}.bff</packageName>
+                            <generatorName>spring</generatorName>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <additionalModelTypeAnnotations>
+                                    @lombok.Builder;
+                                    @lombok.With;
+                                </additionalModelTypeAnnotations>
+                                <openApiNullable>false</openApiNullable>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <library>spring-boot</library>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <apiPackage>${project.groupId}.bff.application.in.rest.controller</apiPackage>
+                                <modelPackage>${project.groupId}.bff.application.in.rest.dto</modelPackage>
+                                <useResponseEntity>false</useResponseEntity>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

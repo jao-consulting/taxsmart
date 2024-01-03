@@ -1,5 +1,6 @@
 # 3. Semantic Release
 
+## Status
 [![Generic badge](https://img.shields.io/badge/Date-2023/12/09-blue.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/Status-Accepted-Green.svg)](https://shields.io/)
 
