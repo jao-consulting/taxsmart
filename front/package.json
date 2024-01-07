@@ -7,17 +7,20 @@
     "dev": "nuxt dev",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:mutation": "stryker run",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint:ts": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
     "lint:full": "npm run lint:ts && npm run lint:prettier",
-    "lint:fix": "prettier --write --list-different . && npm run lint:ts --fix"
+    "lint:fix": "prettier --write --list-different . && npm run lint:ts --fix",
+    "init:mutation": "stryker init"
   },
   "devDependencies": {
     "@nuxt/test-utils": "^3.9.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@stryker-mutator/vitest-runner": "^8.0.0",
     "@typescript-eslint/parser": "^6.16.0",
     "@vitest/coverage-v8": "^1.1.1",
     "@vue/test-utils": "^2.4.3",

@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "vitest",
+  "dashboard": {
+    "project": "github.com/jao-consulting/taxsmart",
+    "baseUrl": "https://dashboard.stryker-mutator.io",
+    "module": "taxsmart--front",
+    "version": "main",
+    "reportType": "full"
+  },
+  "packageManager": "npm",
+  "coverageAnalysis": "perTest",
+
+  "reporters": ["json", "progress", "html", "dashboard"],
+  "plugins": ["@stryker-mutator/vitest-runner"]
+}

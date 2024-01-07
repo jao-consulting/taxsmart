@@ -9,6 +9,15 @@ on:
     # The branch that the pull request events must be on to trigger this workflow.
     branches:
       - main
+    paths:
+      - 'back/**'
+      - 'front/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'back/**'
+      - 'front/**'
   # This workflow can be called by other workflows.
   workflow_call:
   # This workflow can be manually dispatched.
@@ -19,7 +28,7 @@ jobs:
   backend-mutation-testing:
     # This job is skipped if the pull request is a draft.
     if: '! github.event.pull_request.draft'
-    name: Run Back-End mutation tests
+    name: Run Back-End mutation testing
     # This job runs on the latest version of Ubuntu.
     runs-on:
       - ubuntu-latest
@@ -41,5 +50,29 @@ jobs:
           java-version: '21'
           # This command runs the mutation tests using the PITest Maven plugin.
           java-cmd: mvn -B test-compile org.pitest:pitest-maven:mutationCoverage
+          # The API key for the Stryker dashboard is stored as a GitHub secret.
+          stryker-dashboard-api-key: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+
+  frontend-run-mutation-testing:
+    if: '! github.event.pull_request.draft' # This job is skipped if the pull request is a draft.
+    name: Run Front-End mutation testing
+    runs-on:
+      - ubuntu-latest # The type of runner that this job will run on.
+    defaults:
+      run:
+        working-directory: front # The default working directory for this job.
+    steps:
+      # This step checks out the repository.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # This step runs the Node.js unit tests.
+      - name: Run Node Tests
+        uses: ./.github/actions/node-cmd
+        with:
+          working-directory: front
+          node-version: 20
+          node-install-cmd: npm ci
+          node-cmd: npm run test:mutation
           # The API key for the Stryker dashboard is stored as a GitHub secret.
           stryker-dashboard-api-key: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

@@ -24,6 +24,12 @@ inputs:
     description: 'Node command'
     required: true
     default: 'npm run test'
+  # The Stryker dashboard API key.
+  stryker-dashboard-api-key:
+    description: 'Stryker dashboard API key'
+    required: false
+    default: ''
+
 
 # The steps that this action runs.
 runs:
@@ -45,6 +51,8 @@ runs:
     # This step runs the specified Node.js command.
     - name: Run ${{ inputs.node-cmd }}
       shell: bash
+      env:
+        STRYKER_DASHBOARD_API_KEY: ${{ inputs.stryker-dashboard-api-key }}
       run: |
         cd ${{ inputs.working-directory }}
         ${{ inputs.node-cmd }}
