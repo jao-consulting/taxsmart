@@ -16,7 +16,8 @@ public class TaxController implements TaxApi {
 	 * This method calculates the tax based on the given fiscal revenue.
 	 * Currently, it returns a fixed tax amount of 250.
 	 *
-	 * @param fiscalRevenue The fiscal revenue based on which the tax is calculated.
+	 * @param fiscalRevenue
+	 *            The fiscal revenue based on which the tax is calculated.
 	 * @return Tax object with the calculated tax amount.
 	 */
 	@Override

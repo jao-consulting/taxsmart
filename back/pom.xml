@@ -230,7 +230,9 @@
                     <outputFormats>
                         <format>stryker-dashboard</format>
                     </outputFormats>
-                    <testPlugin>junit5</testPlugin>
+                    <pluginConfiguration>
+                        <stryker.moduleName>${project.artifactId}</stryker.moduleName>
+                    </pluginConfiguration>
                 </configuration>
 
             </plugin>
