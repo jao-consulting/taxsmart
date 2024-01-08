@@ -8,8 +8,7 @@ the `.github/workflows/semantic-release.yml` file.
 
 The `semantic-release.yml` workflow is triggered in two scenarios:
 
-1. When a push is made to the `main` branch. only when the content of the paths `back/**` or `front/**` are modified.
-2. When manually triggered via the `workflow_dispatch` event.
+1. When manually triggered via the `workflow_dispatch` event.
 
 ## Workflow Jobs
 

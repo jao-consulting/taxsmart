@@ -34,15 +34,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # This step caches the Maven dependencies.
-    - name: 🙈 Cache maven dependencies
-      if: hashFiles('**/pom.xml') != ''
-      uses: actions/cache@v3
-      with:
-        path: ${{ github.workspace }}/.m2
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-maven
-
     # This step sets up the Java environment.
     - name: Set up JDK ${{ inputs.java-version }}
       uses: actions/setup-java@v4
