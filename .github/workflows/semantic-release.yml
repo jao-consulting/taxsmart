@@ -3,12 +3,6 @@ name: Semantic release
 
 # This workflow is triggered on push events to the main branch and can also be manually dispatched.
 on:
-  push:
-    branches:
-      - main # The branch that the push events must be on to trigger this workflow.
-    paths:
-      - 'back/**' # The paths that the push events must affect to trigger this workflow.
-      - 'front/**' # The paths that the push events must affect to trigger this workflow.
   workflow_dispatch: # This workflow can be manually dispatched.
 
 # The permissions required by this workflow.
