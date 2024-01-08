@@ -24,5 +24,6 @@ logs
 .env.*
 !.env.example
 
+
 # stryker temp files
 .stryker-tmp
