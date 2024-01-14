@@ -43,5 +43,6 @@ The template includes several sections:
 - [ ] ✅ Only one Commit & it is written in conventional commit format
 - [ ] 👨‍💻 Feature development
 - [ ] 🧪 Implementation of unit tests
-- [ ] 📄 ADR or Documentation  written and approved
+- [ ] 📝 Documentation or ADR written and approved
 - [ ] 🔍 Code review done
+- [ ] 📡 Code Quality analysis passed

@@ -4,9 +4,9 @@
 #!/bin/sh
 
 # The script navigates to the 'front' directory, where the front-end code is located.
-# It then runs the 'lint:fix' script defined in the 'package.json' file.
+# It then runs the 'npx lint-staged' command.
 # This script uses a linter to automatically fix any code formatting issues in the TypeScript and JavaScript files.
-cd front/ && npm run lint:fix
+cd front/ && npx lint-staged
 
 # The script then navigates to the 'back' directory, where the back-end code is located.
 # It runs the 'formatter:format' goal of the Maven Formatter Plugin.

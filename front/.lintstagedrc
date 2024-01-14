@@ -1,0 +1,3 @@
+{
+  "**/*.{ts,vue}": "npm run lint:fix"
+}
