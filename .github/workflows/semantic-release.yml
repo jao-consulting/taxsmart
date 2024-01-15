@@ -39,6 +39,8 @@ jobs:
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }} # The GitHub token is used for authentication.
+          GIT_AUTHOR_EMAIL: ${{ secrets.GH_AUTHOR_EMAIL }} # The email address of the author of the commit.
+          GIT_AUTHOR_NAME: ${{ secrets.GH_AUTHOR_NAME }} # The name of the author of the commit.
         with:
           extra_plugins: |
             @semantic-release/exec@latest
