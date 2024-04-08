@@ -16,7 +16,7 @@
     <!-- The properties element defines project-wide properties that can be referenced elsewhere in the POM. -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
         <openapi-generator.version>7.2.0</openapi-generator.version>
     </properties>
 
